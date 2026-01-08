@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PinView</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0b1020;
+    color:white;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 16px;
+    background:#0d1225;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+.logo{font-size:24px;font-weight:bold;}
+.logo span:first-child{color:#00e5ff;}
+.logo span:last-child{color:#b388ff;}
+.search{
+    padding:8px 12px;
+    border-radius:20px;
+    border:none;
+    width:55%;
+    background:#111833;
+    color:white;
+}
+
+/* PAGES */
+.page{display:none;padding:12px 16px 90px;}
+.active{display:block;}
+
+/* GRID */
+.grid{column-count:2;column-gap:12px;}
+.card{
+    background:#111833;
+    margin-bottom:12px;
+    border-radius:14px;
+    overflow:hidden;
+}
+.card img{width:100%;display:block;}
+
+/* NAV */
+.nav{
+    position:fixed;
+    bottom:0;left:0;right:0;
+    background:#0d1225;
+    display:flex;
+    justify-content:space-around;
+    padding:10px 0;
+}
+.nav button{
+    background:none;
+    border:none;
+    color:#aaa;
+    font-size:18px;
+}
+.activeBtn{color:#00e5ff;}
+
+/* CHAT */
+.user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px;
+    background:#111833;
+    border-radius:12px;
+    margin-bottom:10px;
+}
+.user img{width:45px;height:45px;border-radius:50%;}
+
+/* PROFILE & UPLOAD */
+.profile{text-align:center;}
+.profile img{width:120px;height:120px;border-radius:50%;}
+.box{
+    background:#111833;
+    padding:12px;
+    border-radius:12px;
+    margin:10px 0;
+}
+.btn{
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:linear-gradient(90deg,#00e5ff,#b388ff);
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo"><span>Pin</span><span>View</span></div>
+    <input class="search" placeholder="Search...">
+</header>
+
+<!-- HOME -->
+<div id="home" class="page active">
+    <h3>🔥 Popular</h3>
+    <div class="grid">
+        <div class="card"><img src="https://picsum.photos/300/400?1"></div>
+        <div class="card"><img src="https://picsum.photos/300/500?2"></div>
+    </div>
+</div>
+
+<!-- CHAT -->
+<div id="chat" class="page">
+    <h3>💬 Chats</h3>
+    <div class="user"><img src="https://i.pravatar.cc/150?1"> Rahul</div>
+    <div class="user"><img src="https://i.pravatar.cc/150?2"> Aman</div>
+</div>
+
+<!-- UPLOAD -->
+<div id="upload" class="page">
+    <h3>📤 Upload Photo / Video</h3>
+    <div class="profile">
+        <div class="box">
+            <input type="file" id="fileInput" accept="image/*,video/*">
+        </div>
+        <button class="btn" onclick="uploadFile()">Upload</button>
+        <p id="status"></p>
+    </div>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="page">
+    <div class="profile">
+        <img src="https://i.pravatar.cc/300">
+        <h2>Guest User</h2>
+        <div class="box">Email: guest@pinview.app</div>
+        <div class="box">User ID: PV102938</div>
+        <button class="btn">Logout</button>
+    </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+    <button id="btnHome" class="activeBtn" onclick="showPage('home')">🏠</button>
+    <button id="btnChat" onclick="showPage('chat')">💬</button>
+    <button id="btnUpload" onclick="showPage('upload')">➕</button>
+    <button id="btnProfile" onclick="showPage('profile')">👤</button>
+</div>
+
+<script>
+function showPage(page){
+    const pages=["home","chat","upload","profile"];
+    const btns=["btnHome","btnChat","btnUpload","btnProfile"];
+
+    pages.forEach(p=>document.getElementById(p).classList.remove("active"));
+    btns.forEach(b=>document.getElementById(b).classList.remove("activeBtn"));
+
+    document.getElementById(page).classList.add("active");
+    document.getElementById("btn"+page.charAt(0).toUpperCase()+page.slice(1)).classList.add("activeBtn");
+}
+
+function uploadFile(){
+    const file=document.getElementById("fileInput").files[0];
+    if(!file){
+        status.innerText="❌ File select karo";
+    }else{
+        status.innerText="✅ Selected: "+file.name;
+    }
+}
+</script>
+
+</body>
+</html>
